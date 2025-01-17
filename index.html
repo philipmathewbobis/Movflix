@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="./Images/360_F_590754013_CoFRYEcAmLREfB3k8vjzuyStsDbMAnqC.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Movflix</title>
+</head>
+<body>
+
+    <!--  Header  -->
+    <header class="sticky top-0 z-[100] relative flex justify-between items-center py-6 px-4 bg-gray-700 lg:space-x-16 lg:py-0 lg:justify-around">
+        <!--   Logo   -->
+        <div class="flex space-x-4 items-center lg:min-w-54 xl:min-w-[200px] xl:justify-center">
+            <svg class="fill-white" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 30 30" width="30px" height="30px">    <path d="M 15 3 C 8.373 3 3 8.373 3 15 C 3 21.627 8.373 27 15 27 C 21.627 27 27 21.627 27 15 C 27 8.373 21.627 3 15 3 z M 15 5 C 16.657 5 18 5.343 18 7 C 18 8.657 16.657 10 15 10 C 13.343 10 12 8.657 12 7 C 12 5.343 13.343 5 15 5 z M 7.765625 9.5585938 C 7.9377148 9.5724961 8.1213594 9.6117812 8.3183594 9.6757812 C 9.8943594 10.187781 10.756141 11.879078 10.244141 13.455078 C 9.7331406 15.031078 8.0408438 15.892859 6.4648438 15.380859 C 4.8888437 14.868859 4.9762813 13.486156 5.4882812 11.910156 C 5.9362813 10.531156 6.5609961 9.4612773 7.765625 9.5585938 z M 22.234375 9.5585938 C 23.439004 9.4612773 24.063719 10.531156 24.511719 11.910156 C 25.023719 13.486156 25.110156 14.868859 23.535156 15.380859 C 21.959156 15.892859 20.267859 15.031078 19.755859 13.455078 C 19.243859 11.879078 20.105641 10.187781 21.681641 9.6757812 C 21.878641 9.6117812 22.062285 9.5724961 22.234375 9.5585938 z M 15 13 C 16.105 13 17 13.895 17 15 C 17 16.105 16.105 17 15 17 C 13.895 17 13 16.105 13 15 C 13 13.895 13.895 13 15 13 z M 19.597656 18.472656 C 20.560225 18.439736 21.520781 18.870859 22.128906 19.708984 C 23.101906 21.049984 22.218906 22.115844 20.878906 23.089844 C 19.538906 24.063844 18.249391 24.575375 17.275391 23.234375 C 16.301391 21.894375 16.598453 20.017922 17.939453 19.044922 C 18.441953 18.679672 19.020115 18.492408 19.597656 18.472656 z M 10.402344 18.474609 C 10.979762 18.494238 11.558047 18.679672 12.060547 19.044922 C 13.400547 20.018922 13.698609 21.894375 12.724609 23.234375 C 11.750609 24.574375 10.462094 24.063844 9.1210938 23.089844 C 7.7800938 22.115844 6.8970938 21.048984 7.8710938 19.708984 C 8.4798438 18.871484 9.4399805 18.441895 10.402344 18.474609 z M 27 22.183594 C 26.433 23.128594 25.766 24.006063 25 24.789062 L 25 25 C 25 27.206 26.794 29 29 29 C 29.553 29 30 28.553 30 28 C 30 27.447 29.553 27 29 27 C 27.897 27 27 26.103 27 25 L 27 22.183594 z"/></svg>
+            <h1 class="text-2xl font-serif font-bold text-white capitalize">movflix</h1>
+        </div>
+        <!--  Navbar links   -->
+        <nav id="navbar" class="hidden flex z-[100] flex-col space-y-6 top-20 left-0 bg-gray-700 w-full py-6 px-4 lg:static lg:flex lg:flex-row lg:space-y-0 lg:justify-center lg:py-4 md:space-x-6 xl:space-x-16">
+            <ul class="flex flex-col space-y-6 text-white capitalize lg:space-y-0 lg:flex-row lg:items-center lg:space-x-12 xl:space-x-20">
+                <a class="hover:underline underline-offset-4" href="#">home</a>
+                <a class="hover:underline underline-offset-4" href="#movie-section">movies</a>
+                <a class="hover:underline underline-offset-4" href="">tv shows</a>
+                <a class="hover:underline underline-offset-4" href="">popular</a>
+            </ul>
+            <div class="flex space-x-4 justify-center">
+                <input class="bg-gray-800 py-4 px-4 rounded-xl text-center text-white" type="text">
+                <button class="py-2 px-6 rounded-xl bg-gray-800 text-white border border-white hover:bg-gray-900 duration-300">Search</button>
+            </div>
+        </nav>
+        <!--  Hamburger menu  -->
+        <div id="hamburger" class="relative group min-h-[20px] min-w-[20px] cursor-pointer lg:hidden">
+            <div id="first" class="absolute w-full h-[3px] bg-white group-active:rotate-[-45deg] group-active:translate-y-[12px] duration-300"></div>
+            <div id="second" class="absolute w-full h-[3px] bg-white top-2 group-active:hidden duration-300"></div>
+            <div id="third" class="absolute w-full h-[3px] bg-white bottom-0 group-active:rotate-[45deg] group-active:top-3 duration-300"></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="relative">
+        <div class="py-9 before:bg-[url('./images/30-Best-Movie-Poster-2018-Designs.jpg')] before:filter before:brightness-[.4] before:bg-contain before:content-[''] before:absolute before:inset-0 bg-no-repeat min-h-[600px] min-w-screen bg-fixed before:bg-center md:min-h-[570px] flex flex-col space-y-9 md:flex-row md:space-y-0 md:items-center md:justify-center md:space-x-4 md:px-4 lg:px-9 xl:px-16">
+            <!--  Heading in Hero section  -->
+            <div class="flex flex-col space-y-4 py-6 px-4 z-30 text-center items-center">
+                <h3 class="text-yellow-500 font-serif font-semibold capitalize text-2xl">movflix</h3>
+                <h1 class="text-6xl font-bold font-serif tracking-widest capitalize text-white">unlimited  <span class="text-yellow-500">movie</span>, tv shows & more </h1>
+                <a href="#movie-section" class="group py-2 px-6 rounded-full bg-black border border-yellow-600 capitalize text-white font-semibold hover:bg-yellow-600 duration-300 max-w-64 flex items-center">
+                    <svg class="fill-white mr-2 group-hover:fill-black duration-300" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="30px" height="30px"><path d="M 10 5.25 L 10 44.746094 L 43.570313 25 Z"/></svg>
+                    <span class="text-white group-hover:text-black duration-300">see movies</span>
+                </a>
+            </div>
+            <!-- Image -->
+            <div class="max-w-[400px] max-h-[400px] border border-4 border-yellow-600 z-50 mx-auto overflow-hidden md:max-w-[600px] md:max-h-[500px]">
+                <img class="object-contain hover:scale-105 duration-500" src="./Images/EN-US_SG-S2_Primary_Main_RoundandRound-Safe_Vertical_27x40_RGB_PRE.jpg" alt="">
+            </div>
+        </div>
+    </div>
+
+    <!-- 1st set of Tv shows and Movies List  -->
+    <div id="movie-section" class="flex flex-col space-y-2 bg-black py-12 px-4">
+        <div id="section-movies-title" class="flex flex-col space-y-7 md:flex-row md:justify-center md:space-x-16 md:space-y-0 lg:space-x-72 xl:space-x-[500px]">
+            <div>
+                <p class="text-xs uppercase font-serif tracking-widest text-white">online streaming</p>
+                <h3 id="movie-section-title" class="text-3xl font-serif font-bold capitalize text-white underline underline-offset-8 decoration-yellow-500">new release movies</h3>
+            </div>
+            <div class="flex space-x-2 ">
+                <button id="tvshows-btn" class="py-2 px-4 rounded-full bg-gray-700 capitalize text-white md:px-6 xl:px-9 border border-yellow-600 border-2 hover:bg-yellow-600 duration-300">tv shows</button>
+                <button id="movies-btn" class="py-2 px-4 rounded-full bg-gray-700 capitalize text-white md:px-6 xl:px-9 border border-yellow-600 border-2 hover:bg-yellow-600 duration-300">movies</button>
+                <button id="anime-btn" class="py-2 px-4 rounded-full bg-gray-700 capitalize text-white md:px-6 xl:px-9 border border-yellow-600 border-2 hover:bg-yellow-600 duration-300">anime</button>
+            </div>
+        </div>
+        <!-- Movies and Tv Shows List cards -->
+        <div class="flex flex-col items-center space-y-3 py-6 px-4 lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center xl:space-x-0 xl:justify-start xl:mx-auto">
+            <!-- 1st set of two movie card -->
+            <div class="flex flex-col items-center space-y-6 md:flex-row md:space-x-6 md:mx-auto md:space-y-0 xl:mr-[30px]">
+                <!-- 1st Movie card -->
+                <div id="1st-movie" class="movies flex flex-col space-y-4 bg-gray-700 w-96 h-[500px] md:w-56 group cursor-pointer xl:min-w-[250px] xl:max-w-80 2xl:min-w-80 2xl:max-w-80">
+                    <!-- Poster image -->
+                    <div class="overflow-hidden">
+                        <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center pb-2 px-4">
+                        <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                        <p class="year text-yellow-600 font-serif ">2024</p>
+                    </div>
+                    <div class="flex items-center justify-between pb-2 px-4">
+                        <h4 class="text-sm text-yellow-500 border border-white border-2 py-1 px-4 font-semibold uppercase">hd</h4>
+                        <p class="flex items-center space-x-2 ">
+                            <svg class="fill-yellow-500" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 23 3 C 22.449219 3 22 3.449219 22 4 L 22 11.75 L 18 22 L 18 43 C 18.414063 44.164063 19.695313 45 21 45 L 40 45 C 42.207031 45 44 43.207031 44 41 C 44 40.175781 43.738281 39.417969 43.3125 38.78125 C 44.871094 38.234375 46 36.742188 46 35 C 46 34.019531 45.648438 33.132813 45.0625 32.4375 C 46.222656 31.738281 47 30.453125 47 29 C 47 28.019531 46.648438 27.132813 46.0625 26.4375 C 47.222656 25.738281 48 24.453125 48 23 C 48 20.792969 46.207031 19 44 19 L 29.375 19 C 29.984375 17.070313 31 13.617188 31 12 C 31 8.234375 28.242188 3 25.53125 3 Z M 3 19 C 2.714844 19 2.441406 19.128906 2.25 19.34375 C 2.058594 19.558594 1.964844 19.839844 2 20.125 L 5 44.125 C 5.0625 44.625 5.496094 45 6 45 L 15 45 C 15.550781 45 16 44.554688 16 44 L 16 20 C 16 19.449219 15.550781 19 15 19 Z M 11.5 38 C 12.328125 38 13 38.671875 13 39.5 C 13 40.328125 12.328125 41 11.5 41 C 10.671875 41 10 40.328125 10 39.5 C 10 38.671875 10.671875 38 11.5 38 Z"/></svg>
+                            <span class="ratings text-yellow-500">6.8</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2nd Movie card -->
+                <div id="2nd-movie" class="movies flex flex-col space-y-4 bg-gray-700 w-96 h-[500px] md:w-56 group cursor-pointer xl:min-w-[250px] xl:max-w-80 2xl:min-w-80 2xl:max-w-80">
+                    <!-- Poster image -->
+                    <div class="overflow-hidden">
+                        <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center pb-2 px-4">
+                        <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                        <p class="year text-yellow-600 font-serif ">2024</p>
+                    </div>
+                    <div class="flex items-center justify-between pb-2 px-4">
+                        <h4 class="text-sm text-yellow-500 border border-white border-2 py-1 px-4 font-semibold uppercase">hd</h4>
+                        <p class="flex items-center space-x-2 ">
+                            <svg class="fill-yellow-500"  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 23 3 C 22.449219 3 22 3.449219 22 4 L 22 11.75 L 18 22 L 18 43 C 18.414063 44.164063 19.695313 45 21 45 L 40 45 C 42.207031 45 44 43.207031 44 41 C 44 40.175781 43.738281 39.417969 43.3125 38.78125 C 44.871094 38.234375 46 36.742188 46 35 C 46 34.019531 45.648438 33.132813 45.0625 32.4375 C 46.222656 31.738281 47 30.453125 47 29 C 47 28.019531 46.648438 27.132813 46.0625 26.4375 C 47.222656 25.738281 48 24.453125 48 23 C 48 20.792969 46.207031 19 44 19 L 29.375 19 C 29.984375 17.070313 31 13.617188 31 12 C 31 8.234375 28.242188 3 25.53125 3 Z M 3 19 C 2.714844 19 2.441406 19.128906 2.25 19.34375 C 2.058594 19.558594 1.964844 19.839844 2 20.125 L 5 44.125 C 5.0625 44.625 5.496094 45 6 45 L 15 45 C 15.550781 45 16 44.554688 16 44 L 16 20 C 16 19.449219 15.550781 19 15 19 Z M 11.5 38 C 12.328125 38 13 38.671875 13 39.5 C 13 40.328125 12.328125 41 11.5 41 C 10.671875 41 10 40.328125 10 39.5 C 10 38.671875 10.671875 38 11.5 38 Z"/></svg>
+                            <span class="ratings text-yellow-500">6.8</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2nd set of two movie card -->
+            <div class="flex flex-col space-y-6 md:flex-row md:space-x-6 md:mx-auto md:space-y-0">
+                <!-- 1st Movie card -->
+                <div id="3rd-movie" class="movies flex flex-col space-y-4 bg-gray-700 w-96 h-[500px] md:w-56 group cursor-pointer xl:min-w-[250px] xl:max-w-80 2xl:min-w-80 2xl:max-w-80">
+                    <!-- Poster image -->
+                    <div class="overflow-hidden">
+                        <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center pb-2 px-4">
+                        <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                        <p class="year text-yellow-600 font-serif ">2024</p>
+                    </div>
+                    <div class="flex items-center justify-between pb-2 px-4">
+                        <h4 class="text-sm text-yellow-500 border border-white border-2 py-1 px-4 font-semibold uppercase">hd</h4>
+                        <p class="flex items-center space-x-2 ">
+                            <svg class="fill-yellow-500" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 23 3 C 22.449219 3 22 3.449219 22 4 L 22 11.75 L 18 22 L 18 43 C 18.414063 44.164063 19.695313 45 21 45 L 40 45 C 42.207031 45 44 43.207031 44 41 C 44 40.175781 43.738281 39.417969 43.3125 38.78125 C 44.871094 38.234375 46 36.742188 46 35 C 46 34.019531 45.648438 33.132813 45.0625 32.4375 C 46.222656 31.738281 47 30.453125 47 29 C 47 28.019531 46.648438 27.132813 46.0625 26.4375 C 47.222656 25.738281 48 24.453125 48 23 C 48 20.792969 46.207031 19 44 19 L 29.375 19 C 29.984375 17.070313 31 13.617188 31 12 C 31 8.234375 28.242188 3 25.53125 3 Z M 3 19 C 2.714844 19 2.441406 19.128906 2.25 19.34375 C 2.058594 19.558594 1.964844 19.839844 2 20.125 L 5 44.125 C 5.0625 44.625 5.496094 45 6 45 L 15 45 C 15.550781 45 16 44.554688 16 44 L 16 20 C 16 19.449219 15.550781 19 15 19 Z M 11.5 38 C 12.328125 38 13 38.671875 13 39.5 C 13 40.328125 12.328125 41 11.5 41 C 10.671875 41 10 40.328125 10 39.5 C 10 38.671875 10.671875 38 11.5 38 Z"/></svg>
+                            <span class="ratings text-yellow-500">6.8</span>
+                        </p>
+                    </div>
+                </div>
+                <!-- 2nd movie -->
+                <div id="4th-movie" class="movies flex flex-col space-y-4 bg-gray-700 w-96 h-[500px] md:w-56 group cursor-pointer xl:min-w-[250px] xl:max-w-80 2xl:min-w-80 2xl:max-w-80">
+                    <!-- Poster image -->
+                    <div class="overflow-hidden">
+                        <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center pb-2 px-4">
+                        <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                        <p class="year text-yellow-600 font-serif ">2024</p>
+                    </div>
+                    <div class="flex items-center justify-between pb-2 px-4">
+                        <h4 class="text-sm text-yellow-500 border border-white border-2 py-1 px-4 font-semibold uppercase">hd</h4>
+                        <p class="flex items-center space-x-2 ">
+                            <svg class="fill-yellow-500" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 23 3 C 22.449219 3 22 3.449219 22 4 L 22 11.75 L 18 22 L 18 43 C 18.414063 44.164063 19.695313 45 21 45 L 40 45 C 42.207031 45 44 43.207031 44 41 C 44 40.175781 43.738281 39.417969 43.3125 38.78125 C 44.871094 38.234375 46 36.742188 46 35 C 46 34.019531 45.648438 33.132813 45.0625 32.4375 C 46.222656 31.738281 47 30.453125 47 29 C 47 28.019531 46.648438 27.132813 46.0625 26.4375 C 47.222656 25.738281 48 24.453125 48 23 C 48 20.792969 46.207031 19 44 19 L 29.375 19 C 29.984375 17.070313 31 13.617188 31 12 C 31 8.234375 28.242188 3 25.53125 3 Z M 3 19 C 2.714844 19 2.441406 19.128906 2.25 19.34375 C 2.058594 19.558594 1.964844 19.839844 2 20.125 L 5 44.125 C 5.0625 44.625 5.496094 45 6 45 L 15 45 C 15.550781 45 16 44.554688 16 44 L 16 20 C 16 19.449219 15.550781 19 15 19 Z M 11.5 38 C 12.328125 38 13 38.671875 13 39.5 C 13 40.328125 12.328125 41 11.5 41 C 10.671875 41 10 40.328125 10 39.5 C 10 38.671875 10.671875 38 11.5 38 Z"/></svg>
+                            <span class="ratings text-yellow-500">6.8</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2nd set of 4 Movies and Tv Shows List cards -->
+        <div class="flex flex-col items-center space-y-3 py-6 px-4 lg:flex-row lg:space-y-0 lg:space-x-4 lg:justify-center xl:space-x-0 xl:justify-start xl:mx-auto">
+            <!-- 1st set of two movie card -->
+            <div class="flex flex-col space-y-6 md:flex-row md:space-x-6 md:mx-auto md:space-y-0 xl:mr-[30px]">
+                <!-- 1st Movie card -->
+                <div id="5th-movie" class="movies flex flex-col space-y-4 bg-gray-700 w-96 h-[500px] md:w-56 group cursor-pointer xl:min-w-[250px] xl:max-w-80 2xl:min-w-80 2xl:max-w-80">
+                    <!-- Poster image -->
+                    <div class="overflow-hidden">
+                        <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center pb-2 px-4">
+                        <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                        <p class="year text-yellow-600 font-serif ">2024</p>
+                    </div>
+                    <div class="flex items-center justify-between pb-2 px-4">
+                        <h4 class="text-sm text-yellow-500 border border-white border-2 py-1 px-4 font-semibold uppercase">hd</h4>
+                        <p class="flex items-center space-x-2 ">
+                            <svg class="fill-yellow-500" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 23 3 C 22.449219 3 22 3.449219 22 4 L 22 11.75 L 18 22 L 18 43 C 18.414063 44.164063 19.695313 45 21 45 L 40 45 C 42.207031 45 44 43.207031 44 41 C 44 40.175781 43.738281 39.417969 43.3125 38.78125 C 44.871094 38.234375 46 36.742188 46 35 C 46 34.019531 45.648438 33.132813 45.0625 32.4375 C 46.222656 31.738281 47 30.453125 47 29 C 47 28.019531 46.648438 27.132813 46.0625 26.4375 C 47.222656 25.738281 48 24.453125 48 23 C 48 20.792969 46.207031 19 44 19 L 29.375 19 C 29.984375 17.070313 31 13.617188 31 12 C 31 8.234375 28.242188 3 25.53125 3 Z M 3 19 C 2.714844 19 2.441406 19.128906 2.25 19.34375 C 2.058594 19.558594 1.964844 19.839844 2 20.125 L 5 44.125 C 5.0625 44.625 5.496094 45 6 45 L 15 45 C 15.550781 45 16 44.554688 16 44 L 16 20 C 16 19.449219 15.550781 19 15 19 Z M 11.5 38 C 12.328125 38 13 38.671875 13 39.5 C 13 40.328125 12.328125 41 11.5 41 C 10.671875 41 10 40.328125 10 39.5 C 10 38.671875 10.671875 38 11.5 38 Z"/></svg>
+                            <span class="ratings text-yellow-500">6.8</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2nd Movie card -->
+                <div id="6th-movie" class="movies flex flex-col space-y-4 bg-gray-700 w-96 h-[500px] md:w-56 group cursor-pointer xl:min-w-[250px] xl:max-w-80 2xl:min-w-80 2xl:max-w-80">
+                    <!-- Poster image -->
+                    <div class="overflow-hidden">
+                        <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center pb-2 px-4">
+                        <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                        <p class="year text-yellow-600 font-serif ">2024</p>
+                    </div>
+                    <div class="flex items-center justify-between pb-2 px-4">
+                        <h4 class="text-sm text-yellow-500 border border-white border-2 py-1 px-4 font-semibold uppercase">hd</h4>
+                        <p class="flex items-center space-x-2 ">
+                            <svg class="fill-yellow-500"  xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 23 3 C 22.449219 3 22 3.449219 22 4 L 22 11.75 L 18 22 L 18 43 C 18.414063 44.164063 19.695313 45 21 45 L 40 45 C 42.207031 45 44 43.207031 44 41 C 44 40.175781 43.738281 39.417969 43.3125 38.78125 C 44.871094 38.234375 46 36.742188 46 35 C 46 34.019531 45.648438 33.132813 45.0625 32.4375 C 46.222656 31.738281 47 30.453125 47 29 C 47 28.019531 46.648438 27.132813 46.0625 26.4375 C 47.222656 25.738281 48 24.453125 48 23 C 48 20.792969 46.207031 19 44 19 L 29.375 19 C 29.984375 17.070313 31 13.617188 31 12 C 31 8.234375 28.242188 3 25.53125 3 Z M 3 19 C 2.714844 19 2.441406 19.128906 2.25 19.34375 C 2.058594 19.558594 1.964844 19.839844 2 20.125 L 5 44.125 C 5.0625 44.625 5.496094 45 6 45 L 15 45 C 15.550781 45 16 44.554688 16 44 L 16 20 C 16 19.449219 15.550781 19 15 19 Z M 11.5 38 C 12.328125 38 13 38.671875 13 39.5 C 13 40.328125 12.328125 41 11.5 41 C 10.671875 41 10 40.328125 10 39.5 C 10 38.671875 10.671875 38 11.5 38 Z"/></svg>
+                            <span class="ratings text-yellow-500">6.8</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2nd set of two movie card -->
+            <div class="flex flex-col space-y-6 md:flex-row md:space-x-6 md:mx-auto md:space-y-0">
+                <!-- 1st Movie card -->
+                <div id="7th-movie" class="movies flex flex-col space-y-4 bg-gray-700 w-96 h-[500px] md:w-56 group cursor-pointer xl:min-w-[250px] xl:max-w-80 2xl:min-w-80 2xl:max-w-80">
+                    <!-- Poster image -->
+                    <div class="overflow-hidden">
+                        <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center pb-2 px-4">
+                        <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                        <p class="year text-yellow-600 font-serif ">2024</p>
+                    </div>
+                    <div class="flex items-center justify-between pb-2 px-4">
+                        <h4 class="text-sm text-yellow-500 border border-white border-2 py-1 px-4 font-semibold uppercase">hd</h4>
+                        <p class="flex items-center space-x-2 ">
+                            <svg class="fill-yellow-500" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 23 3 C 22.449219 3 22 3.449219 22 4 L 22 11.75 L 18 22 L 18 43 C 18.414063 44.164063 19.695313 45 21 45 L 40 45 C 42.207031 45 44 43.207031 44 41 C 44 40.175781 43.738281 39.417969 43.3125 38.78125 C 44.871094 38.234375 46 36.742188 46 35 C 46 34.019531 45.648438 33.132813 45.0625 32.4375 C 46.222656 31.738281 47 30.453125 47 29 C 47 28.019531 46.648438 27.132813 46.0625 26.4375 C 47.222656 25.738281 48 24.453125 48 23 C 48 20.792969 46.207031 19 44 19 L 29.375 19 C 29.984375 17.070313 31 13.617188 31 12 C 31 8.234375 28.242188 3 25.53125 3 Z M 3 19 C 2.714844 19 2.441406 19.128906 2.25 19.34375 C 2.058594 19.558594 1.964844 19.839844 2 20.125 L 5 44.125 C 5.0625 44.625 5.496094 45 6 45 L 15 45 C 15.550781 45 16 44.554688 16 44 L 16 20 C 16 19.449219 15.550781 19 15 19 Z M 11.5 38 C 12.328125 38 13 38.671875 13 39.5 C 13 40.328125 12.328125 41 11.5 41 C 10.671875 41 10 40.328125 10 39.5 C 10 38.671875 10.671875 38 11.5 38 Z"/></svg>
+                            <span class="ratings text-yellow-500">6.8</span>
+                        </p>
+                    </div>
+                </div>
+                <!-- 2nd movie -->
+                <div id="8th-movie" class="movies flex flex-col space-y-4 bg-gray-700 w-96 h-[500px] md:w-56 group cursor-pointer xl:min-w-[250px] xl:max-w-80 2xl:min-w-80 2xl:max-w-80">
+                    <!-- Poster image -->
+                    <div class="overflow-hidden">
+                        <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+                    </div>
+                    <div class="flex justify-between items-center pb-2 px-4">
+                        <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                        <p class="year text-yellow-600 font-serif ">2024</p>
+                    </div>
+                    <div class="flex items-center justify-between pb-2 px-4">
+                        <h4 class="text-sm text-yellow-500 border border-white border-2 py-1 px-4 font-semibold uppercase">hd</h4>
+                        <p class="flex items-center space-x-2 ">
+                            <svg class="fill-yellow-500" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="25px" height="25px"><path d="M 23 3 C 22.449219 3 22 3.449219 22 4 L 22 11.75 L 18 22 L 18 43 C 18.414063 44.164063 19.695313 45 21 45 L 40 45 C 42.207031 45 44 43.207031 44 41 C 44 40.175781 43.738281 39.417969 43.3125 38.78125 C 44.871094 38.234375 46 36.742188 46 35 C 46 34.019531 45.648438 33.132813 45.0625 32.4375 C 46.222656 31.738281 47 30.453125 47 29 C 47 28.019531 46.648438 27.132813 46.0625 26.4375 C 47.222656 25.738281 48 24.453125 48 23 C 48 20.792969 46.207031 19 44 19 L 29.375 19 C 29.984375 17.070313 31 13.617188 31 12 C 31 8.234375 28.242188 3 25.53125 3 Z M 3 19 C 2.714844 19 2.441406 19.128906 2.25 19.34375 C 2.058594 19.558594 1.964844 19.839844 2 20.125 L 5 44.125 C 5.0625 44.625 5.496094 45 6 45 L 15 45 C 15.550781 45 16 44.554688 16 44 L 16 20 C 16 19.449219 15.550781 19 15 19 Z M 11.5 38 C 12.328125 38 13 38.671875 13 39.5 C 13 40.328125 12.328125 41 11.5 41 C 10.671875 41 10 40.328125 10 39.5 C 10 38.671875 10.671875 38 11.5 38 Z"/></svg>
+                            <span class="ratings text-yellow-500">6.8</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="./movies.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
