@@ -12,8 +12,108 @@ const pagination3 = document.querySelector('#page-3')
 const back = document.querySelector('#back')
 const forward = document.querySelector('#forward')
 
+// Movies Card button
+const allMovieCards = document.querySelectorAll('.movies')
+
+// Modal button
+const modal = document.querySelector('#modal')
+
 let category = ''
 let page = 0
+let moviesResponse = []
+let tvShowsResponse = []
+let animeResponse = []
+
+allMovieCards.forEach(movies => {
+    movies.addEventListener('click', e => {
+        if (category === 'movies') {
+            // Find the title from the movie card
+            const titleElement = movies.querySelector('.movie-title')
+            const modalImg = modal.querySelector('img')
+            const modalTitle = modal.querySelector('.movie-title')
+            const movieOverview = modal.querySelector('#movie-overview')
+            console.log(e)
+            if (titleElement){
+                const cardTitle = titleElement.innerText.trim()
+
+                const matchingResponse = moviesResponse.find(response => response.title.trim().toLowerCase() === cardTitle.toLowerCase())
+
+                if (matchingResponse){
+                    console.log(`Match found: ${matchingResponse.title}`)
+                    console.log(`Movie overview: ${matchingResponse.overview}`)
+                    modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
+                    modalTitle.innerText = matchingResponse.title
+                    movieOverview.innerText = matchingResponse.overview
+                    modal.classList.toggle('hidden')
+                    modal.classList.toggle('fixed')
+                }else {
+                    console.log(`No match found`)
+                }
+            }else {
+                console.log('No .movie-title element found in the movie card.');
+            }
+        }else if (category === 'tvshows') {
+            // Find the title from the movie card
+            const titleElement = movies.querySelector('.movie-title')
+            const modalImg = modal.querySelector('img')
+            const modalTitle = modal.querySelector('.movie-title')
+            const movieOverview = modal.querySelector('#movie-overview')
+            console.log(e)
+            if (titleElement){
+                const cardTitle = titleElement.innerText.trim()
+
+                const matchingResponse = tvShowsResponse.find(response => response.name.trim().toLowerCase() === cardTitle.toLowerCase())
+
+                if (matchingResponse){
+                    console.log(`Match found: ${matchingResponse.title}`)
+                    console.log(`Movie overview: ${matchingResponse.overview}`)
+                    modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
+                    modalTitle.innerText = matchingResponse.name
+                    movieOverview.innerText = matchingResponse.overview
+                    modal.classList.toggle('hidden')
+                    modal.classList.toggle('fixed')
+                }else {
+                    console.log(`No match found`)
+                }
+            }else {
+                console.log('No .movie-title element found in the movie card.');
+            }
+        }else if (category === 'anime') {
+            // Find the title from the movie card
+            const titleElement = movies.querySelector('.movie-title')
+            const modalImg = modal.querySelector('img')
+            const modalTitle = modal.querySelector('.movie-title')
+            const movieOverview = modal.querySelector('#movie-overview')
+            console.log(e)
+            if (titleElement){
+                const cardTitle = titleElement.innerText.trim()
+
+                const matchingResponse = animeResponse.find(response => response.name.trim().toLowerCase() === cardTitle.toLowerCase())
+
+                if (matchingResponse){
+                    console.log(`Match found: ${matchingResponse.title}`)
+                    console.log(`Movie overview: ${matchingResponse.overview}`)
+                    modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
+                    modalTitle.innerText = matchingResponse.name
+                    movieOverview.innerText = matchingResponse.overview
+                    modal.classList.toggle('hidden')
+                    modal.classList.toggle('fixed')
+                }else {
+                    console.log(`No match found`)
+                }
+            }else {
+                console.log('No .movie-title element found in the movie card.');
+            }
+        }
+    })
+})
+
+modal.addEventListener('click', e => {
+    if (e.target === modal){
+        modal.classList.toggle('hidden')
+        modal.classList.toggle('fixed')
+    }
+})
 
 window.onload = function () {
     displayMovies()
@@ -24,18 +124,18 @@ back.addEventListener('click', function () {
         console.log('Cannot back!!')
     }else {
         page -= 1
-        addMoviesPage1(page)
-        addTvShows1(page)
-        addAnime1(page)
+        addMovies(page)
+        addTvShows(page)
+        addAnime(page)
     }
 })
 
 forward.addEventListener('click', function () {
     if (page >= 1){
         page += 1
-        addMoviesPage1(page)
-        addTvShows1(page)
-        addAnime1(page)
+        addMovies(page)
+        addTvShows(page)
+        addAnime(page)
     }else {
         console.log('Cannot forward!!')
     }
@@ -62,21 +162,21 @@ animeBtn.addEventListener('click', e => {
 })
 
 pagination1.addEventListener('click', e => {
-    addMoviesPage1(1)
-    addTvShows1(1)
-    addAnime1(1)
+    addMovies(1)
+    addTvShows(1)
+    addAnime(1)
 })
 
 pagination2.addEventListener('click', e => {
-    addMoviesPage2(2)
-    addTvShows2(2)
-    addAnime2(2)
+    addMovies(2)
+    addTvShows(2)
+    addAnime(2)
 })
 
 pagination3.addEventListener('click', e => {
-    addMoviesPage3(3)
-    addTvShows3(3)
-    addAnime3(3)
+    addMovies(3)
+    addTvShows(3)
+    addAnime(3)
 })
 
 function displayMovies() {
@@ -84,10 +184,10 @@ function displayMovies() {
     MovieTitleSection.innerText = 'New Release Movies'
 }
 
-const addMoviesPage1 = async function (newPage){
+const addMovies = async function (newPage){
     try {
         page = newPage
-        const moviesResponse = await pagination(page)
+        moviesResponse = await pagination(page)
         const allMovieCardsImg = document.querySelectorAll('.movies img')
         const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
         const allMovieCardsYear = document.querySelectorAll('.movies .year')
@@ -109,71 +209,21 @@ const addMoviesPage1 = async function (newPage){
     }
 }
 
-const addMoviesPage2 = async function (newPage){
-    try {
-        page = newPage
-        const moviesResponse = await pagination(page)
-        const allMovieCardsImg = document.querySelectorAll('.movies img')
-        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-        const allMovieCardsYear = document.querySelectorAll('.movies .year')
-        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
-
-        for (let i = 0;i < moviesResponse.length;i++){
-            const moviePoster = moviesResponse[i].poster_path
-            const movieTitles = moviesResponse[i].title
-            const releaseDate = moviesResponse[i].release_date
-            const releaseYear = releaseDate.substring(0,4)
-            const ratings = moviesResponse[i].vote_average
-            allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-            allMovieCardsTitle[i].innerText = movieTitles
-            allMovieCardsYear[i].innerText = releaseYear
-            allMovieCardsRatings[i].innerText = ratings
-        }
-    }catch (err){
-        return "No movies found"
-    }
-}
-
-const addMoviesPage3 = async function (newPage){
-    try {
-        page = newPage
-        const moviesResponse = await pagination(page)
-        const allMovieCardsImg = document.querySelectorAll('.movies img')
-        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-        const allMovieCardsYear = document.querySelectorAll('.movies .year')
-        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
-
-        for (let i = 0;i < moviesResponse.length;i++){
-            const moviePoster = moviesResponse[i].poster_path
-            const movieTitles = moviesResponse[i].title
-            const releaseDate = moviesResponse[i].release_date
-            const releaseYear = releaseDate.substring(0,4)
-            const ratings = moviesResponse[i].vote_average
-            allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-            allMovieCardsTitle[i].innerText = movieTitles
-            allMovieCardsYear[i].innerText = releaseYear
-            allMovieCardsRatings[i].innerText = ratings
-        }
-    }catch (err){
-        return "No movies found"
-    }
-}
-
-const addTvShows1 = async function (newPage){
+const addTvShows = async function (newPage){
     try{
         page = newPage
-        const moviesResponse = await pagination(page)
+        tvShowsResponse = await pagination(page)
         const allMovieCardsImg = document.querySelectorAll('.movies img')
         const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
         const allMovieCardsYear = document.querySelectorAll('.movies .year')
         const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
 
-        for (let i = 0;i < moviesResponse.length;i++){
-            const moviePoster = moviesResponse[i].poster_path
-            const movieTitles = moviesResponse[i].title
-            const releaseDate = moviesResponse[i].release_date
+        for (let i = 0;i < tvShowsResponse.length;i++){
+            const moviePoster = tvShowsResponse[i].poster_path
+            const movieTitles = tvShowsResponse[i].title
+            const releaseDate = tvShowsResponse[i].release_date
             const releaseYear = releaseDate.substring(0,4)
-            const ratings = moviesResponse[i].vote_average
+            const ratings = tvShowsResponse[i].vote_average
             allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
             allMovieCardsTitle[i].innerText = movieTitles
             allMovieCardsYear[i].innerText = releaseYear
@@ -184,121 +234,21 @@ const addTvShows1 = async function (newPage){
     }
 }
 
-const addTvShows2 = async function (newPage){
+const addAnime = async function (newPage){
     try{
         page = newPage
-        const moviesResponse = await pagination(page)
+        animeResponse = await pagination(page)
         const allMovieCardsImg = document.querySelectorAll('.movies img')
         const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
         const allMovieCardsYear = document.querySelectorAll('.movies .year')
         const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
 
-        for (let i = 0;i < moviesResponse.length;i++){
-            const moviePoster = moviesResponse[i].poster_path
-            const movieTitles = moviesResponse[i].title
-            const releaseDate = moviesResponse[i].release_date
+        for (let i = 0;i < animeResponse.length;i++){
+            const moviePoster = animeResponse[i].poster_path
+            const movieTitles = animeResponse[i].name
+            const releaseDate = animeResponse[i].first_air_date
             const releaseYear = releaseDate.substring(0,4)
-            const ratings = moviesResponse[i].vote_average
-            allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-            allMovieCardsTitle[i].innerText = movieTitles
-            allMovieCardsYear[i].innerText = releaseYear
-            allMovieCardsRatings[i].innerText = ratings
-        }
-    }catch (err){
-        return "No tvShows found"
-    }
-}
-
-const addTvShows3 = async function (newPage){
-    try{
-        page = newPage
-        const moviesResponse = await pagination(page)
-        const allMovieCardsImg = document.querySelectorAll('.movies img')
-        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-        const allMovieCardsYear = document.querySelectorAll('.movies .year')
-        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
-
-        for (let i = 0;i < moviesResponse.length;i++){
-            const moviePoster = moviesResponse[i].poster_path
-            const movieTitles = moviesResponse[i].title
-            const releaseDate = moviesResponse[i].release_date
-            const releaseYear = releaseDate.substring(0,4)
-            const ratings = moviesResponse[i].vote_average
-            allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-            allMovieCardsTitle[i].innerText = movieTitles
-            allMovieCardsYear[i].innerText = releaseYear
-            allMovieCardsRatings[i].innerText = ratings
-        }
-    }catch (err){
-        return "No tvShows found"
-    }
-}
-
-const addAnime1 = async function (newPage){
-    try{
-        page = newPage
-        const moviesResponse = await pagination(page)
-        const allMovieCardsImg = document.querySelectorAll('.movies img')
-        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-        const allMovieCardsYear = document.querySelectorAll('.movies .year')
-        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
-
-        for (let i = 0;i < moviesResponse.length;i++){
-            const moviePoster = moviesResponse[i].poster_path
-            const movieTitles = moviesResponse[i].name
-            const releaseDate = moviesResponse[i].first_air_date
-            const releaseYear = releaseDate.substring(0,4)
-            const ratings = moviesResponse[i].vote_average
-            allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-            allMovieCardsTitle[i].innerText = movieTitles
-            allMovieCardsYear[i].innerText = releaseYear
-            allMovieCardsRatings[i].innerText = ratings
-        }
-    }catch (err){
-        return "No tvShows found"
-    }
-}
-
-const addAnime2 = async function (newPage){
-    try{
-        page = newPage
-        const moviesResponse = await pagination(page)
-        const allMovieCardsImg = document.querySelectorAll('.movies img')
-        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-        const allMovieCardsYear = document.querySelectorAll('.movies .year')
-        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
-
-        for (let i = 0;i < moviesResponse.length;i++){
-            const moviePoster = moviesResponse[i].poster_path
-            const movieTitles = moviesResponse[i].name
-            const releaseDate = moviesResponse[i].first_air_date
-            const releaseYear = releaseDate.substring(0,4)
-            const ratings = moviesResponse[i].vote_average
-            allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-            allMovieCardsTitle[i].innerText = movieTitles
-            allMovieCardsYear[i].innerText = releaseYear
-            allMovieCardsRatings[i].innerText = ratings
-        }
-    }catch (err){
-        return "No tvShows found"
-    }
-}
-
-const addAnime3 = async function (newPage){
-    try{
-        page = newPage
-        const moviesResponse = await pagination(page)
-        const allMovieCardsImg = document.querySelectorAll('.movies img')
-        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-        const allMovieCardsYear = document.querySelectorAll('.movies .year')
-        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
-
-        for (let i = 0;i < moviesResponse.length;i++){
-            const moviePoster = moviesResponse[i].poster_path
-            const movieTitles = moviesResponse[i].name
-            const releaseDate = moviesResponse[i].first_air_date
-            const releaseYear = releaseDate.substring(0,4)
-            const ratings = moviesResponse[i].vote_average
+            const ratings = animeResponse[i].vote_average
             allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
             allMovieCardsTitle[i].innerText = movieTitles
             allMovieCardsYear[i].innerText = releaseYear
@@ -312,7 +262,7 @@ const addAnime3 = async function (newPage){
 const addNewMovies = async function () {
     category = 'movies'
     page = 1
-    const moviesResponse = await getCategory(category,page)
+    moviesResponse = await getCategory(category,page)
     const allMovieCardsImg = document.querySelectorAll('.movies img')
     const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
     const allMovieCardsYear = document.querySelectorAll('.movies .year')
@@ -334,18 +284,18 @@ const addNewMovies = async function () {
 const addNewTvShows = async function () {
     category = 'tvshows'
     page = 1
-    const moviesResponse = await getCategory(category,page)
+    tvShowsResponse = await getCategory(category,page)
     const allMovieCardsImg = document.querySelectorAll('.movies img')
     const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
     const allMovieCardsYear = document.querySelectorAll('.movies .year')
     const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
 
-    for (let i = 0;i < moviesResponse.length;i++){
-        const moviePoster = moviesResponse[i].poster_path
-        const movieTitles = moviesResponse[i].name
-        const releaseDate = moviesResponse[i].first_air_date
+    for (let i = 0;i < tvShowsResponse.length;i++){
+        const moviePoster = tvShowsResponse[i].poster_path
+        const movieTitles = tvShowsResponse[i].name
+        const releaseDate = tvShowsResponse[i].first_air_date
         const releaseYear = releaseDate.substring(0,4)
-        const ratings = moviesResponse[i].vote_average
+        const ratings = tvShowsResponse[i].vote_average
         allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
         allMovieCardsTitle[i].innerText = movieTitles
         allMovieCardsYear[i].innerText = releaseYear
@@ -356,18 +306,18 @@ const addNewTvShows = async function () {
 const addNewAnimes = async function () {
     category = 'anime'
     page = 1
-    const moviesResponse = await getCategory(category,page)
+    animeResponse = await getCategory(category,page)
     const allMovieCardsImg = document.querySelectorAll('.movies img')
     const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
     const allMovieCardsYear = document.querySelectorAll('.movies .year')
     const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
 
-    for (let i = 0;i < moviesResponse.length;i++){
-        const moviePoster = moviesResponse[i].poster_path
-        const movieTitles = moviesResponse[i].name
-        const releaseDate = moviesResponse[i].first_air_date
+    for (let i = 0;i < animeResponse.length;i++){
+        const moviePoster = animeResponse[i].poster_path
+        const movieTitles = animeResponse[i].name
+        const releaseDate = animeResponse[i].first_air_date
         const releaseYear = releaseDate.substring(0,4)
-        const ratings = moviesResponse[i].vote_average
+        const ratings = animeResponse[i].vote_average
         allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
         allMovieCardsTitle[i].innerText = movieTitles
         allMovieCardsYear[i].innerText = releaseYear

@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Movflix</title>
 </head>
-<body>
+<body class="relative">
 
     <!--  Header  -->
     <header class="sticky top-0 z-[100] relative flex justify-between items-center py-6 px-4 bg-gray-700 lg:space-x-16 lg:py-0 lg:justify-around">
@@ -244,6 +244,25 @@
             <button id="page-2" class="py-1 px-3 bg-gray-700 border text-white hover:bg-gray-800 duration-300">2</button>
             <button id="page-3" class="py-1 px-3 bg-gray-700 border text-white hover:bg-gray-800 duration-300">3</button>
             <button id="forward" class="py-1 px-3 rounded-r-lg bg-gray-700 border text-white hover:bg-gray-800 duration-300">></button>
+        </div>
+    </div>
+
+    <!-- Background Modal -->
+    <div id="modal" class="hidden z-[100] inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+        <!-- Movie Modal Card    -->
+        <div class="group flex flex-col w-80 h-[650px] bg-gray-800 space-y-3 md:w-96 lg:w-[500px]">
+            <!-- Poster image -->
+            <div class="overflow-hidden">
+                <img class="object-fit group-hover:scale-105 group-hover:brightness-[.5] duration-500" src="https://image.tmdb.org/t/p/original/d8Ryb8AunYAuycVKDp5HpdWPKgC.jpg" alt="">
+            </div>
+            <div class="flex justify-between items-center pb-2 px-4">
+                <h2 class="movie-title text-md text-white font-serif font-semibold capitalize">Sonic the Hedgehog 3</h2>
+                <p class="year text-yellow-600 font-serif ">2024</p>
+            </div>
+            <div class="flex flex-col space-y-3 px-4 py-3">
+                <h3 class="text-md font-serif font-semibold capitalize text-white">overview</h3>
+                <p id="movie-overview" class="font-serif text-slate-300 tracking-widest"></p>
+            </div>
         </div>
     </div>
 
