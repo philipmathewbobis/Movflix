@@ -32,6 +32,7 @@ allMovieCards.forEach(movies => {
             const modalImg = modal.querySelector('img')
             const modalTitle = modal.querySelector('.movie-title')
             const movieOverview = modal.querySelector('#movie-overview')
+            const yearP = modal.querySelector('.year')
             console.log(e)
             if (titleElement){
                 const cardTitle = titleElement.innerText.trim()
@@ -41,9 +42,11 @@ allMovieCards.forEach(movies => {
                 if (matchingResponse){
                     console.log(`Match found: ${matchingResponse.title}`)
                     console.log(`Movie overview: ${matchingResponse.overview}`)
+                    const year = matchingResponse.release_date.substring(0,4)
                     modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
                     modalTitle.innerText = matchingResponse.title
                     movieOverview.innerText = matchingResponse.overview
+                    yearP.innerText = year
                     modal.classList.toggle('hidden')
                     modal.classList.toggle('fixed')
                 }else {
@@ -58,6 +61,7 @@ allMovieCards.forEach(movies => {
             const modalImg = modal.querySelector('img')
             const modalTitle = modal.querySelector('.movie-title')
             const movieOverview = modal.querySelector('#movie-overview')
+            const yearP = modal.querySelector('.year')
             console.log(e)
             if (titleElement){
                 const cardTitle = titleElement.innerText.trim()
@@ -67,9 +71,11 @@ allMovieCards.forEach(movies => {
                 if (matchingResponse){
                     console.log(`Match found: ${matchingResponse.title}`)
                     console.log(`Movie overview: ${matchingResponse.overview}`)
+                    const year = matchingResponse.first_air_date.substring(0,4)
                     modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
                     modalTitle.innerText = matchingResponse.name
                     movieOverview.innerText = matchingResponse.overview
+                    yearP.innerText = year
                     modal.classList.toggle('hidden')
                     modal.classList.toggle('fixed')
                 }else {
@@ -84,6 +90,7 @@ allMovieCards.forEach(movies => {
             const modalImg = modal.querySelector('img')
             const modalTitle = modal.querySelector('.movie-title')
             const movieOverview = modal.querySelector('#movie-overview')
+            const yearP = modal.querySelector('.year')
             console.log(e)
             if (titleElement){
                 const cardTitle = titleElement.innerText.trim()
@@ -93,9 +100,11 @@ allMovieCards.forEach(movies => {
                 if (matchingResponse){
                     console.log(`Match found: ${matchingResponse.title}`)
                     console.log(`Movie overview: ${matchingResponse.overview}`)
+                    const year = matchingResponse.first_air_date.substring(0,4)
                     modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
                     modalTitle.innerText = matchingResponse.name
                     movieOverview.innerText = matchingResponse.overview
+                    yearP.innerText = year
                     modal.classList.toggle('hidden')
                     modal.classList.toggle('fixed')
                 }else {
