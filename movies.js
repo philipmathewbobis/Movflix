@@ -24,6 +24,52 @@ let moviesResponse = []
 let tvShowsResponse = []
 let animeResponse = []
 
+// All cards to apply loading
+const movieImgLoading = document.querySelectorAll('.movies .overflow-hidden')
+const hdLoading = document.querySelectorAll('.movies h4')
+const hideSvg = document.querySelectorAll('.movies svg')
+const containerPVote = document.querySelectorAll('.movies .vote-average')
+const allMovieImages = document.querySelectorAll('.movies img')
+const allMovieTitle = document.querySelectorAll('.movies .movie-title')
+const allMovieYear = document.querySelectorAll('.movies .year')
+const voteAverage = document.querySelectorAll('.movies .ratings')
+
+
+// the set of classes for loading if fetching the api failed
+const loadingAnimation = {
+    ImageLoading: {
+        firstClass: 'bg-gray-600',
+        secondClass: 'w-full',
+        thirdClass: 'h-80'
+    },
+    TitleLoading: {
+        firstClass: 'bg-gray-600',
+        secondClass: 'w-40',
+        thirdClass: 'h-7'
+    },
+    YearLoading: {
+        firstClass: 'bg-gray-600',
+        secondClass: 'w-9',
+        thirdClass: 'h-7'
+    }, //
+    HdLoading: {
+        firstClass: 'bg-gray-600',
+        secondClass: 'w-14',
+        thirdClass: 'h-8'
+    },
+    HdBorderRemove: {
+        firstClass: 'border',
+        secondClass: 'border-white',
+        thirdClass: 'border-2',
+    },
+    VoteLoading: {
+        firstClass: 'bg-gray-600',
+        secondClass: 'w-14',
+        thirdClass: 'h-8'
+    },
+    HideLike: 'hidden'
+}
+
 allMovieCards.forEach(movies => {
     movies.addEventListener('click', e => {
         if (category === 'movies') {
@@ -33,15 +79,12 @@ allMovieCards.forEach(movies => {
             const modalTitle = modal.querySelector('.movie-title')
             const movieOverview = modal.querySelector('#movie-overview')
             const yearP = modal.querySelector('.year')
-            console.log(e)
             if (titleElement){
                 const cardTitle = titleElement.innerText.trim()
 
                 const matchingResponse = moviesResponse.find(response => response.title.trim().toLowerCase() === cardTitle.toLowerCase())
 
                 if (matchingResponse){
-                    console.log(`Match found: ${matchingResponse.title}`)
-                    console.log(`Movie overview: ${matchingResponse.overview}`)
                     const year = matchingResponse.release_date.substring(0,4)
                     modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
                     modalTitle.innerText = matchingResponse.title
@@ -62,15 +105,12 @@ allMovieCards.forEach(movies => {
             const modalTitle = modal.querySelector('.movie-title')
             const movieOverview = modal.querySelector('#movie-overview')
             const yearP = modal.querySelector('.year')
-            console.log(e)
             if (titleElement){
                 const cardTitle = titleElement.innerText.trim()
 
                 const matchingResponse = tvShowsResponse.find(response => response.name.trim().toLowerCase() === cardTitle.toLowerCase())
 
                 if (matchingResponse){
-                    console.log(`Match found: ${matchingResponse.title}`)
-                    console.log(`Movie overview: ${matchingResponse.overview}`)
                     const year = matchingResponse.first_air_date.substring(0,4)
                     modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
                     modalTitle.innerText = matchingResponse.name
@@ -91,15 +131,12 @@ allMovieCards.forEach(movies => {
             const modalTitle = modal.querySelector('.movie-title')
             const movieOverview = modal.querySelector('#movie-overview')
             const yearP = modal.querySelector('.year')
-            console.log(e)
             if (titleElement){
                 const cardTitle = titleElement.innerText.trim()
 
                 const matchingResponse = animeResponse.find(response => response.name.trim().toLowerCase() === cardTitle.toLowerCase())
 
                 if (matchingResponse){
-                    console.log(`Match found: ${matchingResponse.title}`)
-                    console.log(`Movie overview: ${matchingResponse.overview}`)
                     const year = matchingResponse.first_air_date.substring(0,4)
                     modalImg.setAttribute('src',`${imageUrl}${matchingResponse.poster_path}`)
                     modalTitle.innerText = matchingResponse.name
@@ -196,7 +233,7 @@ function displayMovies() {
 const addMovies = async function (newPage){
     try {
         page = newPage
-        moviesResponse = await pagination(page)
+        moviesResponse = await getCategory(page)
         const allMovieCardsImg = document.querySelectorAll('.movies img')
         const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
         const allMovieCardsYear = document.querySelectorAll('.movies .year')
@@ -221,7 +258,7 @@ const addMovies = async function (newPage){
 const addTvShows = async function (newPage){
     try{
         page = newPage
-        tvShowsResponse = await pagination(page)
+        tvShowsResponse = await getCategory(page)
         const allMovieCardsImg = document.querySelectorAll('.movies img')
         const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
         const allMovieCardsYear = document.querySelectorAll('.movies .year')
@@ -246,7 +283,7 @@ const addTvShows = async function (newPage){
 const addAnime = async function (newPage){
     try{
         page = newPage
-        animeResponse = await pagination(page)
+        animeResponse = await getCategory(page)
         const allMovieCardsImg = document.querySelectorAll('.movies img')
         const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
         const allMovieCardsYear = document.querySelectorAll('.movies .year')
@@ -271,29 +308,48 @@ const addAnime = async function (newPage){
 const addNewMovies = async function () {
     category = 'movies'
     page = 1
-    moviesResponse = await getCategory(category,page)
-    const allMovieCardsImg = document.querySelectorAll('.movies img')
-    const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-    const allMovieCardsYear = document.querySelectorAll('.movies .year')
-    const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
+    try{
+        moviesResponse = await getCategory(page)
+        const allMovieCardsImg = document.querySelectorAll('.movies img')
+        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
+        const allMovieCardsYear = document.querySelectorAll('.movies .year')
+        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
 
-    for (let i = 0;i < moviesResponse.length;i++){
-        const moviePoster = moviesResponse[i].poster_path
-        const movieTitles = moviesResponse[i].title
-        const releaseDate = moviesResponse[i].release_date
-        const releaseYear = releaseDate.substring(0,4)
-        const ratings = moviesResponse[i].vote_average
-        allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-        allMovieCardsTitle[i].innerText = movieTitles
-        allMovieCardsYear[i].innerText = releaseYear
-        allMovieCardsRatings[i].innerText = ratings
+        for (let i = 0;i < moviesResponse.length;i++){
+            const moviePoster = moviesResponse[i].poster_path
+            const movieTitles = moviesResponse[i].title
+            const releaseDate = moviesResponse[i].release_date
+            const releaseYear = releaseDate.substring(0,4)
+            const ratings = moviesResponse[i].vote_average
+            allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
+            allMovieCardsTitle[i].innerText = movieTitles
+            allMovieCardsYear[i].innerText = releaseYear
+            allMovieCardsRatings[i].innerText = ratings
+        }
+    }catch (err){
+        for (let i = 0;i < movieImgLoading.length;i++){
+            // Remove all current text and image
+            allMovieImages[i].setAttribute('src','')
+            allMovieTitle[i].innerText = ''
+            allMovieYear[i].innerText = ''
+            hdLoading[i].innerText = ''
+            hdLoading[i].classList.remove(loadingAnimation.HdBorderRemove.firstClass,loadingAnimation.HdBorderRemove.secondClass,loadingAnimation.HdBorderRemove.thirdClass)
+            hideSvg[i].classList.add(loadingAnimation.HideLike)
+            voteAverage[i].innerText = ''
+
+            movieImgLoading[i].classList.add(loadingAnimation.ImageLoading.firstClass,loadingAnimation.ImageLoading.secondClass,loadingAnimation.ImageLoading.thirdClass)
+            allMovieTitle[i].classList.add(loadingAnimation.TitleLoading.firstClass,loadingAnimation.TitleLoading.secondClass,loadingAnimation.TitleLoading.thirdClass)
+            hdLoading[i].classList.add(loadingAnimation.HdLoading.firstClass,loadingAnimation.HdLoading.secondClass,loadingAnimation.HdLoading.thirdClass)
+            allMovieYear[i].classList.add(loadingAnimation.YearLoading.firstClass,loadingAnimation.YearLoading.secondClass,loadingAnimation.YearLoading.thirdClass)
+            containerPVote[i].classList.add(loadingAnimation.VoteLoading.firstClass,loadingAnimation.VoteLoading.secondClass,loadingAnimation.VoteLoading.thirdClass)
+        }
     }
 }
 
 const addNewTvShows = async function () {
     category = 'tvshows'
     page = 1
-    tvShowsResponse = await getCategory(category,page)
+    tvShowsResponse = await getCategory(page)
     const allMovieCardsImg = document.querySelectorAll('.movies img')
     const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
     const allMovieCardsYear = document.querySelectorAll('.movies .year')
@@ -315,7 +371,7 @@ const addNewTvShows = async function () {
 const addNewAnimes = async function () {
     category = 'anime'
     page = 1
-    animeResponse = await getCategory(category,page)
+    animeResponse = await getCategory(page)
     const allMovieCardsImg = document.querySelectorAll('.movies img')
     const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
     const allMovieCardsYear = document.querySelectorAll('.movies .year')
@@ -334,7 +390,8 @@ const addNewAnimes = async function () {
     }
 }
 
-const getCategory = async function (category, page) {
+const getCategory = async function (page) {
+
     try {
         if (category.toLowerCase() === 'movies'){
             const moviesList = []
@@ -345,14 +402,14 @@ const getCategory = async function (category, page) {
             return moviesList
         }else if (category.toLowerCase() === 'tvshows'){
             const tvShows = []
-            const reponse = await axios.get("https://api.themoviedb.org/3/tv/top_rated?api_key=e02994a25ca108483463a8676f36b38d&language=en-US&page=1")
+            const response = await axios.get(`https://api.themoviedb.org/3/tv/top_rated?api_key=e02994a25ca108483463a8676f36b38d&language=en-US&page=${page}`)
             for (let i = 0;i < 8;i++){
-                tvShows.push(reponse.data.results[i])
+                tvShows.push(response.data.results[i])
             }
             return tvShows
         }else if (category.toLowerCase() === 'anime'){
             const animes = []
-            const response = await axios.get("https://api.themoviedb.org/3/search/tv?api_key=e02994a25ca108483463a8676f36b38d&query=anime")
+            const response = await axios.get(`https://api.themoviedb.org/3/search/tv?api_key=e02994a25ca108483463a8676f36b38d&query=anime&page=${page}`)
             for (let i = 0;i < 5;i++){
                 animes.push(response.data.results[i])
             }
@@ -362,11 +419,12 @@ const getCategory = async function (category, page) {
             return animes
         }
     }catch (err){
-        return "No category"
+        return "Failed fetching api" // return the set of classes for loading if fetching the api failed
     }
 }
 
 const pagination = async function (page) {
+
     try {
         if (category.toLowerCase() === 'movies') {
             const moviesList = []
@@ -394,6 +452,6 @@ const pagination = async function (page) {
             return animes
         }
     }catch (err){
-        return "No page found"
+        return loadingAnimation // return the set of classes for loading if fetching the api failed
     }
 }
