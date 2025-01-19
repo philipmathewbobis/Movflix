@@ -166,13 +166,13 @@ window.onload = function () {
 }
 
 back.addEventListener('click', function () {
-    if (page <= 1){
-        console.log('Cannot back!!')
-    }else {
-        page -= 1
-        addMovies(page)
-        addTvShows(page)
-        addAnime(page)
+    if (page > 1) {
+        page--;
+        if (category === 'movies') addMovies(page);
+        else if (category === 'tvshows') addTvShows(page);
+        else if (category === 'anime') addAnime(page);
+    } else {
+        console.log('No previous pages available.');
     }
 })
 
@@ -306,9 +306,10 @@ const addAnime = async function (newPage){
 }
 
 const addNewMovies = async function () {
-    category = 'movies'
-    page = 1
     try{
+        removeLoadingDesign()
+        category = 'movies'
+        page = 1
         moviesResponse = await getCategory(page)
         const allMovieCardsImg = document.querySelectorAll('.movies img')
         const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
@@ -327,66 +328,62 @@ const addNewMovies = async function () {
             allMovieCardsRatings[i].innerText = ratings
         }
     }catch (err){
-        for (let i = 0;i < movieImgLoading.length;i++){
-            // Remove all current text and image
-            allMovieImages[i].setAttribute('src','')
-            allMovieTitle[i].innerText = ''
-            allMovieYear[i].innerText = ''
-            hdLoading[i].innerText = ''
-            hdLoading[i].classList.remove(loadingAnimation.HdBorderRemove.firstClass,loadingAnimation.HdBorderRemove.secondClass,loadingAnimation.HdBorderRemove.thirdClass)
-            hideSvg[i].classList.add(loadingAnimation.HideLike)
-            voteAverage[i].innerText = ''
-
-            movieImgLoading[i].classList.add(loadingAnimation.ImageLoading.firstClass,loadingAnimation.ImageLoading.secondClass,loadingAnimation.ImageLoading.thirdClass)
-            allMovieTitle[i].classList.add(loadingAnimation.TitleLoading.firstClass,loadingAnimation.TitleLoading.secondClass,loadingAnimation.TitleLoading.thirdClass)
-            hdLoading[i].classList.add(loadingAnimation.HdLoading.firstClass,loadingAnimation.HdLoading.secondClass,loadingAnimation.HdLoading.thirdClass)
-            allMovieYear[i].classList.add(loadingAnimation.YearLoading.firstClass,loadingAnimation.YearLoading.secondClass,loadingAnimation.YearLoading.thirdClass)
-            containerPVote[i].classList.add(loadingAnimation.VoteLoading.firstClass,loadingAnimation.VoteLoading.secondClass,loadingAnimation.VoteLoading.thirdClass)
-        }
+        loadingDesign()
     }
 }
 
 const addNewTvShows = async function () {
-    category = 'tvshows'
-    page = 1
-    tvShowsResponse = await getCategory(page)
-    const allMovieCardsImg = document.querySelectorAll('.movies img')
-    const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-    const allMovieCardsYear = document.querySelectorAll('.movies .year')
-    const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
+    try {
+        removeLoadingDesign()
+        category = 'tvshows'
+        page = 1
+        tvShowsResponse = await getCategory(page)
+        const allMovieCardsImg = document.querySelectorAll('.movies img')
+        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
+        const allMovieCardsYear = document.querySelectorAll('.movies .year')
+        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
 
-    for (let i = 0;i < tvShowsResponse.length;i++){
-        const moviePoster = tvShowsResponse[i].poster_path
-        const movieTitles = tvShowsResponse[i].name
-        const releaseDate = tvShowsResponse[i].first_air_date
-        const releaseYear = releaseDate.substring(0,4)
-        const ratings = tvShowsResponse[i].vote_average
-        allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-        allMovieCardsTitle[i].innerText = movieTitles
-        allMovieCardsYear[i].innerText = releaseYear
-        allMovieCardsRatings[i].innerText = ratings
+        for (let i = 0; i < tvShowsResponse.length; i++) {
+            const moviePoster = tvShowsResponse[i].poster_path
+            const movieTitles = tvShowsResponse[i].name
+            const releaseDate = tvShowsResponse[i].first_air_date
+            const releaseYear = releaseDate.substring(0, 4)
+            const ratings = tvShowsResponse[i].vote_average
+            allMovieCardsImg[i].setAttribute('src', `${imageUrl}${moviePoster}`)
+            allMovieCardsTitle[i].innerText = movieTitles
+            allMovieCardsYear[i].innerText = releaseYear
+            allMovieCardsRatings[i].innerText = ratings
+        }
+    }catch (err){
+        loadingDesign()
     }
 }
 
 const addNewAnimes = async function () {
-    category = 'anime'
-    page = 1
-    animeResponse = await getCategory(page)
-    const allMovieCardsImg = document.querySelectorAll('.movies img')
-    const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
-    const allMovieCardsYear = document.querySelectorAll('.movies .year')
-    const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
+    try {
+        removeLoadingDesign()
+        category = 'anime'
+        page = 1
+        animeResponse = await getCategory(page)
+        const allMovieCardsImg = document.querySelectorAll('.movies img')
+        const allMovieCardsTitle = document.querySelectorAll('.movies .movie-title')
+        const allMovieCardsYear = document.querySelectorAll('.movies .year')
+        const allMovieCardsRatings = document.querySelectorAll('.movies .ratings')
 
-    for (let i = 0;i < animeResponse.length;i++){
-        const moviePoster = animeResponse[i].poster_path
-        const movieTitles = animeResponse[i].name
-        const releaseDate = animeResponse[i].first_air_date
-        const releaseYear = releaseDate.substring(0,4)
-        const ratings = animeResponse[i].vote_average
-        allMovieCardsImg[i].setAttribute('src',`${imageUrl}${moviePoster}`)
-        allMovieCardsTitle[i].innerText = movieTitles
-        allMovieCardsYear[i].innerText = releaseYear
-        allMovieCardsRatings[i].innerText = ratings
+        for (let i = 0; i < allMovieCardsImg.length; i++) {
+            const moviePoster = animeResponse[i].poster_path
+            const movieTitles = animeResponse[i].name
+            const releaseDate = animeResponse[i].first_air_date
+            const releaseYear = releaseDate.substring(0, 4)
+            const ratings = animeResponse[i].vote_average
+            allMovieCardsImg[i].setAttribute('src', `${imageUrl}${moviePoster}`)
+            allMovieCardsTitle[i].innerText = movieTitles
+            allMovieCardsYear[i].innerText = releaseYear
+            allMovieCardsRatings[i].innerText = ratings
+        }
+    }catch (err){
+        console.log(err)
+        loadingDesign()
     }
 }
 
@@ -423,35 +420,33 @@ const getCategory = async function (page) {
     }
 }
 
-const pagination = async function (page) {
+function removeLoadingDesign(){
+    for (let i = 0;i < movieImgLoading.length;i++){
+        hdLoading[i].innerText = 'hd'
+        hdLoading[i].classList.add(loadingAnimation.HdLoading.firstClass,loadingAnimation.HdLoading.secondClass,loadingAnimation.HdLoading.thirdClass)
+        hdLoading[i].classList.add(loadingAnimation.HdBorderRemove.firstClass,loadingAnimation.HdBorderRemove.secondClass,loadingAnimation.HdBorderRemove.thirdClass)
+        movieImgLoading[i].classList.remove(loadingAnimation.ImageLoading.firstClass,loadingAnimation.ImageLoading.secondClass,loadingAnimation.ImageLoading.thirdClass)
+        allMovieTitle[i].classList.remove(loadingAnimation.TitleLoading.firstClass,loadingAnimation.TitleLoading.secondClass,loadingAnimation.TitleLoading.thirdClass)
+        allMovieYear[i].classList.remove(loadingAnimation.YearLoading.firstClass,loadingAnimation.YearLoading.secondClass,loadingAnimation.YearLoading.thirdClass)
+        containerPVote[i].classList.remove(loadingAnimation.VoteLoading.firstClass,loadingAnimation.VoteLoading.secondClass,loadingAnimation.VoteLoading.thirdClass)
+    }
+}
 
-    try {
-        if (category.toLowerCase() === 'movies') {
-            const moviesList = []
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=e02994a25ca108483463a8676f36b38d&language=en-US&page=${page}`)
-            for (let i = 0;i < 8;i++){
-                moviesList.push(response.data.results[i])
-            }
-            return moviesList
-        }else if (category.toLowerCase() === 'tvshows') {
-            const tvShows = []
-            const reponse = await axios.get(`https://api.themoviedb.org/3/tv/top_rated?api_key=e02994a25ca108483463a8676f36b38d&language=en-US&page=${page}`)
-            for (let i = 0;i < 8;i++){
-                tvShows.push(reponse.data.results[i])
-            }
-            return tvShows
-        }else if (category.toLowerCase() === 'anime') {
-            const animes = []
-            const response = await axios.get(`https://api.themoviedb.org/3/search/tv?api_key=e02994a25ca108483463a8676f36b38d&query=anime&page=${page}`)
-            for (let i = 0;i < 5;i++){
-                animes.push(response.data.results[i])
-            }
-            for (let i = 8;i < 12;i++){
-                animes.push(response.data.results[i])
-            }
-            return animes
-        }
-    }catch (err){
-        return loadingAnimation // return the set of classes for loading if fetching the api failed
+function loadingDesign(){
+    for (let i = 0;i < movieImgLoading.length;i++){
+        // Remove all current text and image
+        allMovieImages[i].setAttribute('src','')
+        allMovieTitle[i].innerText = ''
+        allMovieYear[i].innerText = ''
+        hdLoading[i].innerText = ''
+        hdLoading[i].classList.remove(loadingAnimation.HdBorderRemove.firstClass,loadingAnimation.HdBorderRemove.secondClass,loadingAnimation.HdBorderRemove.thirdClass)
+        hideSvg[i].classList.add(loadingAnimation.HideLike)
+        voteAverage[i].innerText = ''
+
+        movieImgLoading[i].classList.add(loadingAnimation.ImageLoading.firstClass,loadingAnimation.ImageLoading.secondClass,loadingAnimation.ImageLoading.thirdClass)
+        allMovieTitle[i].classList.add(loadingAnimation.TitleLoading.firstClass,loadingAnimation.TitleLoading.secondClass,loadingAnimation.TitleLoading.thirdClass)
+        hdLoading[i].classList.add(loadingAnimation.HdLoading.firstClass,loadingAnimation.HdLoading.secondClass,loadingAnimation.HdLoading.thirdClass)
+        allMovieYear[i].classList.add(loadingAnimation.YearLoading.firstClass,loadingAnimation.YearLoading.secondClass,loadingAnimation.YearLoading.thirdClass)
+        containerPVote[i].classList.add(loadingAnimation.VoteLoading.firstClass,loadingAnimation.VoteLoading.secondClass,loadingAnimation.VoteLoading.thirdClass)
     }
 }
